@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "LogLens Pro",
+  "version": "0.1.0",
+  "description": "Enhanced log viewer for CI/CD platforms with ANSI colors, search, and error highlighting",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://gitlab.com/*",
+    "https://*.jenkins.io/*",
+    "https://circleci.com/*",
+    "https://travis-ci.com/*",
+    "https://dev.azure.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*/actions/*",
+        "https://gitlab.com/*/-/jobs/*",
+        "https://*.jenkins.io/*",
+        "https://circleci.com/*",
+        "https://travis-ci.com/*",
+        "https://dev.azure.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles/loglens.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["styles/*", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
